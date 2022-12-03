@@ -80,8 +80,14 @@ def user_profile():
 
 @app.route("/logout")
 def logout():
-    """Log user out"""
-
+    """Log user out by clearing the session"""
+    
+    if "username" in session: 
+        session.clear()
+        flash("You've been logged out")
+    else:
+        flash("Sorry, please log in:")
+    
     return redirect("/")
 
 if __name__ == '__main__':
