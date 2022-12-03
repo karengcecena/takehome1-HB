@@ -41,21 +41,28 @@ def login():
 
 @app.route("/search_appt")
 def show_schedule_appt():
-    """Display's page to schedule appt"""
+    """Display's page for search feature of schedule appt"""
 
-    return render_template("search_appt.html")
+    if "username" in session:
+        return render_template("search_appt.html")
 
-@app.route("/schedule_appt")
-def schedule_appt():
-    """Display's page to schedule appt"""
+    else: 
+        return redirect("/login")
 
-    return render_template("search_appt.html")
+@app.route("/display_appts_available", methods=["POST"])
+def display_appts():
+    """Display's page with all appts available"""
+
+    return render_template("search_appt_results.html")
 
 @app.route("/profile")
 def user_profile():
     """View user profile with scheduled appts"""
+    
+    user_username =  session["username"]
+    user = crud.get_user_by_username(user_username)
 
-    return render_template("scheduled_appts.html")
+    return render_template("scheduled_appts.html", user=user)
 
 @app.route("/logout")
 def logout():
