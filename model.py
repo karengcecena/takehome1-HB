@@ -1,4 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
+# import for hashing passwords
+from passlib.hash import argon2
 
 db = SQLAlchemy()
 
@@ -39,6 +41,20 @@ class Appointment(db.Model):
 
         return f"<Media appointment_id: {self.appointment_id} appointment_start_time: {self.appointment_start_time} appointment_end_time: {self.appointment_end_time}>"
 
+def example_data():
+    """Create some sample data."""
+
+    # In case this is run more than once, empty out existing data
+    User.query.delete()
+
+    # Add sample users
+    example_test1 = User(email="test1@test.com", username="test1" , password=argon2.hash("test1"))
+    example_test2 = User(email="test2@test.com", username="test2" , password=argon2.hash("test2"))
+    example_test3 = User(email="test3@test.com", username="test3" , password=argon2.hash("test3"))
+
+    db.session.add_all([example_test1, example_test2, example_test3])
+    db.session.commit()
+
 def connect_to_db(app, db_uri="postgresql:///project_db", echo=True):
     """Connect to database."""
 
@@ -51,5 +67,8 @@ def connect_to_db(app, db_uri="postgresql:///project_db", echo=True):
 
 if __name__ == "__main__":
     from server import app
+    
     connect_to_db(app)
     db.create_all()
+
+    example_data()
