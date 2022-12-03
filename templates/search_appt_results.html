@@ -2,4 +2,21 @@
 
 {% block title %} Search Results {% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+
+<div class="parent container d-flex justify-content-center align-items-center h-100" >
+    <div class="child">
+
+        <!-- Schedule Appt -->
+        <div><h1>Available Appointments: </h1></div>
+
+        <form action="/create_appt" method="POST">
+
+            <div><button type="submit">Create Appointment</button></div>
+            
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

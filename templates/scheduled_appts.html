@@ -2,4 +2,31 @@
 
 {% block title %} Scheduled Appointments {% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+
+<div class="parent container d-flex justify-content-center align-items-center h-100" >
+    <div class="child">
+
+       <!-- All of users appointments -->
+        {% if user.appointments %}
+            {% for appt in user.appointments%}
+
+                <p>{appt.appointment_date}</p>
+                <p>{appt.appointment_start_time}</p>
+                <p>{appt.appointment_end_time}</p>
+        
+            {% endfor %}
+
+        {% else %}
+
+            <p>You have no scheduled reservation currently. Try searching for <a href="/search_appt">reservation availability</a></p>
+    
+        {% endif %}
+
+
+    </div>
+</div>
+
+
+
+{% endblock %}
