@@ -53,7 +53,21 @@ def show_schedule_appt():
 def display_appts():
     """Display's page with all appts available"""
 
-    return render_template("search_appt_results.html")
+    date = request.form.get("reservation_date")
+    start_time = request.form.get("start_time")
+    end_time = request.form.get("end_time")
+
+    user_username =  session["username"]
+    user = crud.get_user_by_username(user_username)
+
+    #if date in users appts already:
+    if crud.check_date_in_user_appts(date, user):
+        flash("Sorry, you already have an appt scheduled for that day")
+        return redirect("/search_appt")
+
+    else: 
+        taken_appts = crud.get_all_available_appts(date)
+        return render_template("search_appt_results.html", taken_appts=taken_appts, start_time=start_time, end_time=end_time)
 
 @app.route("/profile")
 def user_profile():
