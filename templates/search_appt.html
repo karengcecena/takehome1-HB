@@ -4,4 +4,27 @@
 
 {% block body %}
 
+<div class="parent container d-flex justify-content-center align-items-center h-100" >
+    <div class="child">
+
+        <!-- Schedule Appt -->
+        <div><h1>Search Melon Reservation Availability: </h1></div>
+
+        <form action="/login" method="POST">
+            
+            <div><p>Enter the date of the reservation you would like: </p</div>
+
+            <div><input type="date" name="reservation_date" placeholder="Click to choose a date" required></div>
+
+            <div><p>Enter an optional time range and we will only show appointments in that range:</p></div>
+
+            <div><input type="time" name="start_time" placeholder="Start time"></div>
+            <div><input type="time" name="end_time" placeholder="End time"></div>
+
+            <div><button type="submit">Search</button></div>
+        </form>
+
+    </div>
+</div>
+
 {% endblock %}
