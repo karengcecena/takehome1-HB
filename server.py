@@ -1,6 +1,10 @@
 from flask import (Flask, render_template, request, flash, session, redirect)
-
 from jinja2 import StrictUndefined
+from model import connect_to_db, db
+import crud
+
+# import for hashing passwords
+from passlib.hash import argon2
 
 
 app = Flask(__name__)
@@ -13,11 +17,27 @@ def homepage():
 
     return render_template("login.html")
 
-@app.route("/login")
+@app.route("/login", methods=["POST"])
 def login():
     """Logs user in"""
 
-    return redirect("/schedule_appt")
+    username = request.form.get("username")
+    password = request.form.get("password")
+    user = crud.get_user_by_username(username)
+
+    if user:
+        if argon2.verify(password, user.password):
+            session["username"] = user.username
+
+            return redirect("/schedule_appt")
+        
+        else:
+            flash("Your password was incorrect. Please try again.")
+
+    else:
+        flash("Sorry, a user with that email doesn't exist")
+    
+    return redirect("/login")
 
 @app.route("/search_appt")
 def show_schedule_appt():
@@ -44,4 +64,5 @@ def logout():
     return redirect("/")
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    connect_to_db(app)
+    app.run(host='0.0.0.0', debug=True)

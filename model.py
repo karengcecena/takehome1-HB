@@ -1,3 +1,5 @@
+"""Models for Melon Reservation App """
+
 from flask_sqlalchemy import SQLAlchemy
 # import for hashing passwords
 from passlib.hash import argon2
@@ -13,7 +15,6 @@ class User(db.Model):
     email = db.Column(db.String(50), unique=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String())
-    appointment_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
 
     # middle table: 
     appointments = db.relationship('Appointment', back_populates="user")
@@ -29,6 +30,7 @@ class Appointment(db.Model):
     __tablename__ = "appointments"
 
     appointment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    appointment_date = db.Column(db.DateTime, nullable=False)
     appointment_start_time = db.Column(db.DateTime)
     appointment_end_time = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
@@ -39,36 +41,23 @@ class Appointment(db.Model):
     def __repr__(self):
         """Show info about the Appointment"""
 
-        return f"<Media appointment_id: {self.appointment_id} appointment_start_time: {self.appointment_start_time} appointment_end_time: {self.appointment_end_time}>"
+        return f"<Appointment appointment_id: {self.appointment_id} appointment_date: {self.appointment_date} appointment_start_time: {self.appointment_start_time} appointment_end_time: {self.appointment_end_time}>"
 
-def example_data():
-    """Create some sample data."""
-
-    # In case this is run more than once, empty out existing data
-    User.query.delete()
-
-    # Add sample users
-    example_test1 = User(email="test1@test.com", username="test1" , password=argon2.hash("test1"))
-    example_test2 = User(email="test2@test.com", username="test2" , password=argon2.hash("test2"))
-    example_test3 = User(email="test3@test.com", username="test3" , password=argon2.hash("test3"))
-
-    db.session.add_all([example_test1, example_test2, example_test3])
-    db.session.commit()
-
-def connect_to_db(app, db_uri="postgresql:///project_db", echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///melon_tasting_db", echo=True):
     """Connect to database."""
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
-    app.config["SQLALCHEMY_ECHO"] = True
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+    flask_app.config["SQLALCHEMY_ECHO"] = echo
+    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    db.app = app
-    db.init_app(app)
+    db.app = flask_app
+    db.init_app(flask_app)
+
+    print("Successfully connected to DB")
 
 if __name__ == "__main__":
     from server import app
     
     connect_to_db(app)
     db.create_all()
-
-    example_data()
+    
