@@ -2,4 +2,25 @@
 
 {% block title %} Login {% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+
+<div class="parent container d-flex justify-content-center align-items-center h-100" >
+    <div class="child">
+
+        <!-- Login -->
+        <div><h1>Login</h1></div>
+
+        <form action="/login" method="POST">
+            
+            <div>Username: <input type="text" name="username" placeholder="Enter your username"></div>
+
+            <div>Password <input type="password" name="password" placeholder="Enter your password"></div>
+
+            <div><button type="submit">Login</button></div>
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock %}
