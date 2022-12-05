@@ -120,6 +120,22 @@ def create_appt():
 
     return redirect("/profile")
 
+@app.route("/delete_reservation", methods=["POST"])
+def delete_reservation():
+    """Deletes Selected Reservation for User"""
+
+    user_username =  session["username"]
+    user = crud.get_user_by_username(user_username)
+
+    appt_date = request.form.get("date")
+
+    appt = crud.check_date_in_user_appts(appt_date, user)
+
+    db.session.delete(appt)
+    db.session.commit()
+
+    return redirect("/profile")
+    
 @app.route("/profile")
 def user_profile():
     """View user profile with scheduled appts"""
