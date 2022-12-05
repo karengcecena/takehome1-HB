@@ -120,7 +120,7 @@ def create_appt():
 
     return redirect("/profile")
 
-@app.route("/delete_reservation", methods=["POST"])
+@app.route("/cancel_reservation", methods=["POST"])
 def delete_reservation():
     """Deletes Selected Reservation for User"""
 
@@ -135,7 +135,7 @@ def delete_reservation():
     db.session.commit()
 
     return redirect("/profile")
-    
+
 @app.route("/profile")
 def user_profile():
     """View user profile with scheduled appts"""

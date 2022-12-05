@@ -25,3 +25,4 @@ I believe a potential tradeoff is having start time of the appointment separated
 ## Extra Features
 
 - Password Hashing for login. I decided to implement passwords and password hashing for increased security for users who want to make melon reservations. 
+- Added a cancel reservation route so that users have the ability to delete unwanted reservations from their profile

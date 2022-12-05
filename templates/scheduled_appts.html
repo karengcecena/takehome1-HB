@@ -15,9 +15,9 @@
                 <li>
                     {{appt}} From: {{times[0]}} - {{times[1]}}
 
-                    <form action="/delete_reservation" method="POST" id="delete_appt_form">
+                    <form action="/cancel_reservation" method="POST" id="delete_appt_form">
                             <input type="hidden" name="date" value="{{ appt }}">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Cancel Reservation</button>
                     </form>
                 
                 </li>
