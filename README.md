@@ -1,7 +1,10 @@
 # Melon Tasting Reservation App
 
 ## To use: 
-Test user login information: (username: test1, password: test)
+Test user login information: 
+- test1_user = User(email="test1@test.test", username="test1", password=argon2.hash("test"))
+- test2_user = User(email="test2@test.test", username="test2", password=argon2.hash("test"))
+- test3_user = User(email="test3@test.test", username="test3", password=argon2.hash("test"))
 
 ## Technologies
 
