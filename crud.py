@@ -22,7 +22,7 @@ def get_all_taken_appts_start_time(date):
     start_times = []
 
     for appt in appts: 
-        start_times.append(appt.start_time)
+        start_times.append(appt.appointment_start_time)
 
     return start_times 
 
