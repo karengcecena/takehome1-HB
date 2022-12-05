@@ -31,7 +31,7 @@ class Appointment(db.Model):
 
     appointment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     appointment_date = db.Column(db.DateTime, nullable=False)
-    appointment_start_time = db.Column(db.DateTime)
+    appointment_start_time = db.Column(db.DateTime, nullable=False)
     appointment_end_time = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
 

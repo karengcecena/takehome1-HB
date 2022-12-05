@@ -8,12 +8,12 @@
     <div class="child">
 
        <!-- All of users appointments -->
-        {% if user.appointments %}
-            {% for appt in user.appointments%}
+       <h1>Your Reservations:</h1>
+        {% if appts %}
+            {% for appt, times in appts.items() %}
+                
+            <p>Day: {{appt}} From: {{times[0]}} - {{times[1]}}</p>
 
-                <p>{appt.appointment_date}</p>
-                <p>{appt.appointment_start_time}</p>
-                <p>{appt.appointment_end_time}</p>
         
             {% endfor %}
 

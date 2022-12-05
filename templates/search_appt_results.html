@@ -10,24 +10,32 @@
         <!-- Schedule Appt -->
         <div><h1>Available Appointments: </h1></div>
 
-        <form action="/create_appt" method="POST">
+        {% if all_available_reservations_within_times%}
 
-            <!-- {{ all_available_reservations_within_times }} -->
+            <form action="/create_appt" method="POST">
 
-            <label for="starts">Select Reservation Start Time </label>
-                 <select name="start_time" id="starts" required="required">
-                        
-                    {% for slot in all_available_reservations_within_times %}
+                <!-- {{ all_available_reservations_within_times }} -->
+                <input type="hidden" value="{{ date }}" name="date">
 
-                        <option value="{{ slot }}">{{ slot }} </option>
-                        
-                    {% endfor %}
+                <label for="starts">Select Reservation Start Time </label>
+                    <select name="start_time" id="starts" required="required">
+                    
+                        {% for slot in all_available_reservations_within_times %}
 
-                </select>
+                            <option value="{{ slot }}">{{ slot }} </option>
+                            
+                        {% endfor %}
 
-            <div><button type="submit">Create Appointment</button></div>
-            
-        </form>
+                    </select>
+
+                <div><button type="submit">Create Appointment</button></div>
+                
+            </form>
+        {% else %}
+
+            <p>Sorry, it seems there are no available reservations at this time.</p>
+
+        {% endif %}
 
     </div>
 </div>

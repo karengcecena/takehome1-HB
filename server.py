@@ -87,6 +87,7 @@ def display_appts():
 
         # to filter appointments if start and end time were given:
         if start_time:
+            # print(type(start_time))
             if end_time:
                 for slot in all_available_reservations:
                     if slot >= start_time and slot <= end_time:
@@ -98,8 +99,26 @@ def display_appts():
             all_available_reservations_within_times.extend(all_available_reservations)
 
         # print(all_available_reservations_within_times)
+        # print(date)
 
-        return render_template("search_appt_results.html", all_available_reservations_within_times=all_available_reservations_within_times)
+        return render_template("search_appt_results.html", date=date, all_available_reservations_within_times=all_available_reservations_within_times)
+
+@app.route("/create_appt", methods=["POST"])
+def create_appt():
+    """Creates an appt for user"""
+
+    user_username =  session["username"]
+    user = crud.get_user_by_username(user_username)
+
+    appt_start_time = request.form.get("start_time")
+    date = request.form.get("date")
+
+    appt = crud.create_appt(date, appt_start_time, user)
+
+    db.session.add(appt)
+    db.session.commit()
+
+    return redirect("/profile")
 
 @app.route("/profile")
 def user_profile():
@@ -108,7 +127,10 @@ def user_profile():
     user_username =  session["username"]
     user = crud.get_user_by_username(user_username)
 
-    return render_template("scheduled_appts.html", user=user)
+    appts = crud.get_users_appts_formatted(user)
+    # print(appts)
+
+    return render_template("scheduled_appts.html", user=user, appts=appts)
 
 @app.route("/logout")
 def logout():
