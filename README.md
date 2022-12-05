@@ -1,5 +1,8 @@
 # Melon Tasting Reservation App
 
+## To use: 
+Test user login information: (username: test1, password: test)
+
 ## Technologies
 
 **Tech Stack:**
