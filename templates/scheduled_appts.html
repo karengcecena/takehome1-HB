@@ -11,10 +11,9 @@
        <h1>Your Reservations:</h1>
         {% if appts %}
             {% for appt, times in appts.items() %}
-                
-            <p>Day: {{appt}} From: {{times[0]}} - {{times[1]}}</p>
-
-        
+            <ul>
+                <li>Day: {{appt}} From: {{times[0]}} - {{times[1]}}</li>
+            </ul>
             {% endfor %}
 
         {% else %}
