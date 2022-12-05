@@ -12,6 +12,19 @@
 
         <form action="/create_appt" method="POST">
 
+            <!-- {{ all_available_reservations_within_times }} -->
+
+            <label for="starts">Select Reservation Start Time </label>
+                 <select name="start_time" id="starts" required="required">
+                        
+                    {% for slot in all_available_reservations_within_times %}
+
+                        <option value="{{ slot }}">{{ slot }} </option>
+                        
+                    {% endfor %}
+
+                </select>
+
             <div><button type="submit">Create Appointment</button></div>
             
         </form>

@@ -29,7 +29,7 @@ def login():
         if argon2.verify(password, user.password):
             session["username"] = user.username
 
-            return redirect("/schedule_appt")
+            return redirect("/search_appt")
         
         else:
             flash("Your password was incorrect. Please try again.")
@@ -62,12 +62,44 @@ def display_appts():
 
     #if date in users appts already:
     if crud.check_date_in_user_appts(date, user):
-        flash("Sorry, you already have an appt scheduled for that day")
+        flash("Sorry, you already have a reservation scheduled for that day")
         return redirect("/search_appt")
 
     else: 
-        taken_appts = crud.get_all_available_appts(date)
-        return render_template("search_appt_results.html", taken_appts=taken_appts, start_time=start_time, end_time=end_time)
+        taken_start_times = crud.get_all_taken_appts_start_time(date)
+        taken_start_times_set = set(taken_start_times)
+
+        all_app_slots = crud.get_all_appt_slots()
+
+        # print(all_app_slots)
+        # print(taken_start_times)
+
+        all_available_reservations = []
+
+        # to filter appointments already taken (by start time)
+        for slot in all_app_slots:
+            if slot not in taken_start_times_set:
+                all_available_reservations.append(slot)
+
+        all_available_reservations_within_times = []
+
+        # print(all_available_reservations)
+
+        # to filter appointments if start and end time were given:
+        if start_time:
+            if end_time:
+                for slot in all_available_reservations:
+                    if slot >= start_time and slot <= end_time:
+                        all_available_reservations_within_times.append(slot)
+            else:
+                flash("Make sure to put both start and end time in if you want to limit time search")
+
+        else: 
+            all_available_reservations_within_times.extend(all_available_reservations)
+
+        # print(all_available_reservations_within_times)
+
+        return render_template("search_appt_results.html", all_available_reservations_within_times=all_available_reservations_within_times)
 
 @app.route("/profile")
 def user_profile():
