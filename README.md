@@ -2,6 +2,8 @@
 
 ## To Use: 
 
+Hosted Site: [MelonTastingReservationApp](https://melon-reservation-take-home.herokuapp.com/)
+
 Test user login information: 
 - test1_user = User(email="test1@test.test", username="test1", password=argon2.hash("test"))
 - test2_user = User(email="test2@test.test", username="test2", password=argon2.hash("test"))
