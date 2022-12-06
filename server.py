@@ -7,7 +7,7 @@ import crud
 from passlib.hash import argon2
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.secret_key = "session_secret"
 app.jinja_env.undefined = StrictUndefined
 
