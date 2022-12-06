@@ -1,6 +1,7 @@
 """Models for Melon Reservation App """
 
 from flask_sqlalchemy import SQLAlchemy
+
 # import for hashing passwords
 from passlib.hash import argon2
 

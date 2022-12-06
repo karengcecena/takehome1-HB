@@ -15,6 +15,9 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """View login page"""
 
+    if "username" in session:
+        return redirect("/search_appt")
+
     return render_template("login.html")
 
 @app.route("/login", methods=["POST"])
@@ -28,16 +31,15 @@ def login():
     if user:
         if argon2.verify(password, user.password):
             session["username"] = user.username
-
             return redirect("/search_appt")
         
         else:
             flash("Your password was incorrect. Please try again.")
 
     else:
-        flash("Sorry, a user with that email doesn't exist")
+        flash("Sorry, a user with that username doesn't exist")
     
-    return redirect("/login")
+    return redirect("/")
 
 @app.route("/search_appt")
 def show_schedule_appt():
