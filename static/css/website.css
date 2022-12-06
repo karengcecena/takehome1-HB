@@ -47,7 +47,7 @@ nav>ul>li a {
 
 nav>ul>li a:hover:not(.active) {
     background-color: #111;
-    color: rgb(146, 108, 108);
+    color: rgba(220, 144, 30);
 }
 
 nav>ul>li a:hover(.active) {

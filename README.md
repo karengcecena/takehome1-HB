@@ -1,6 +1,7 @@
 # Melon Tasting Reservation App
 
 ## To use: 
+
 Test user login information: 
 - test1_user = User(email="test1@test.test", username="test1", password=argon2.hash("test"))
 - test2_user = User(email="test2@test.test", username="test2", password=argon2.hash("test"))
@@ -18,6 +19,7 @@ Test user login information:
 - Bootstrap
 
 ## Why I chose the technologies used
+
 I used PostgreSQL because I wanted the users and data tied to those users to persist, so I needed a database. Furthermore, I used Python and the framework Flask to create the server. For the webpage, I used HTML and CSS for simple decorating, bootstrap for page layout, as well as Jinja for the templating power. 
 
 
