@@ -1,1 +1,1 @@
-web: gunicorn app:takehome1_HB
+web: gunicorn server:app
