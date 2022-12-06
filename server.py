@@ -140,7 +140,6 @@ def user_profile():
     user = crud.get_user_by_username(user_username)
 
     appts = crud.get_users_appts_formatted(user)
-    # print(appts)
 
     return render_template("scheduled_appts.html", user=user, appts=appts)
 

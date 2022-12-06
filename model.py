@@ -55,6 +55,20 @@ def connect_to_db(flask_app, db_uri="postgresql:///melon_tasting_db", echo=True)
 
     print("Successfully connected to DB")
 
+def example_data():
+    """Create some sample data for testing."""
+
+    # In case this is run more than once, empty out existing data
+    User.query.delete()
+
+    # Add sample users
+    example_testpy1 = User(email="testpy1@test.com", username="testpy1" , password=argon2.hash("test"))
+    example_testpy2 = User(email="testpy2@test.com", username="testpy2" , password=argon2.hash("test"))
+    example_testpy3 = User(email="testpy3@test.com", username="testpy3" , password=argon2.hash("test"))
+
+    db.session.add_all([example_testpy1, example_testpy2, example_testpy3])
+    db.session.commit()
+
 if __name__ == "__main__":
     from server import app
     
