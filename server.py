@@ -47,7 +47,8 @@ def show_schedule_appt():
         return render_template("search_appt.html")
 
     else: 
-        return redirect("/login")
+        flash("Sorry. You must log in to reserve for melon tasting.")
+        return redirect("/")
 
 @app.route("/display_appts_available", methods=["POST"])
 def display_appts():
@@ -71,9 +72,6 @@ def display_appts():
 
         all_app_slots = crud.get_all_appt_slots()
 
-        # print(all_app_slots)
-        # print(taken_start_times)
-
         all_available_reservations = []
 
         # to filter appointments already taken (by start time)
@@ -83,11 +81,8 @@ def display_appts():
 
         all_available_reservations_within_times = []
 
-        # print(all_available_reservations)
-
         # to filter appointments if start and end time were given:
         if start_time:
-            # print(type(start_time))
             if end_time:
                 for slot in all_available_reservations:
                     if slot >= start_time and slot <= end_time:
@@ -97,9 +92,6 @@ def display_appts():
 
         else: 
             all_available_reservations_within_times.extend(all_available_reservations)
-
-        # print(all_available_reservations_within_times)
-        # print(date)
 
         return render_template("search_appt_results.html", date=date, all_available_reservations_within_times=all_available_reservations_within_times)
 
@@ -139,6 +131,10 @@ def delete_reservation():
 @app.route("/profile")
 def user_profile():
     """View user profile with scheduled appts"""
+
+    if not "username" in session:
+        flash("Sorry. You must log in to reserve for melon tasting.")
+        return redirect("/")
     
     user_username =  session["username"]
     user = crud.get_user_by_username(user_username)
