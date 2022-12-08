@@ -3,7 +3,7 @@ This is a practice take home for Hackbright.
 
 ## To Use: 
 
-Hosted Site: [MelonTastingReservationApp](https://melon-reservation-take-home.herokuapp.com/)
+Hosted Site: [MelonTastingReservationApp](http://34.210.221.34/)
 
 Test user login information: 
 - test1_user = User(email="test1@test.test", username="test1", password=argon2.hash("test"))
@@ -40,4 +40,4 @@ I believe a potential tradeoff is having start time of the appointment separated
 - Deployed Website for ease of access
 
 ## Note
-- The Procfile and gunicorn==20.1.0 requirement (and a few others due to HB web dev virtual environment issues) were created for hosting web app on Heroku, however, I decided to host it on AWS instead). 
+- The Procfile and gunicorn==20.1.0 requirement (and a few others due to HB web dev virtual environment issues) in requirements.txt were created for hosting web app on Heroku, however, I decided to host it on AWS instead. 
