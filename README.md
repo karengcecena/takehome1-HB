@@ -1,4 +1,5 @@
 # Melon Tasting Reservation App
+This is a practice take home for Hackbright. 
 
 ## To Use: 
 
@@ -36,3 +37,7 @@ I believe a potential tradeoff is having start time of the appointment separated
 - Password Hashing for login: I decided to implement passwords and password hashing for increased security for users who want to make melon reservations. 
 - Cancel Reservation Button: Added a cancel reservation route so that users have the ability to delete unwanted reservations from their profile
 - tests.py: I decided to add test to make sure the routes reroute correctly based on logged in vs not logged in users to ensure the web app was running properly. 
+- Deployed Website for ease of access
+
+## Note
+- The Procfile and gunicorn==20.1.0 requirement (and a few others due to HB web dev virtual environment issues) were created for hosting web app on Heroku, however, I decided to host it on AWS instead). 
